@@ -1,0 +1,287 @@
+#+TITLE: Na, version 0.1.1
+
+* Introduction
+
+Na is a probalistic language. The more details you use when explaining an
+event, the more probable it is that the recipient understands you. This is not
+very different from typical languages ("a blue building" is more precise than
+"a building"), but the new thing in Na is that this guesswork is everywhere.
+
+* Alphabet
+
+Optimally, Na should have its own alphabet. To aid in its spreading, a subset
+of the Latin alphabet has been chosen instead:
+
+: . A E I O B D F G K L N S T V
+
+All of these letters are pronounced as "short sounds", i.e. "A" is not
+pronounced as "AAY", but just "AE". This is the same for all wovels. There are
+two types of correct syllables: those of the form <consonant><wovel> and those
+of the form <wovel>: "LO" is legal, "LOO", "LLA", "LOI", "AV", and "AEV" are
+not. Aside from letters, only the period (".")  character and space between
+characters are used. No commas, no colons, no semicolons, nothing else. Also,
+there is no difference between uppercase and lowercase letters. Sentences are
+read left-to-right (numbers are written right-to-left; more about that later).
+
+With only 4 wovels and 10 consonants pronouncations can be very varied and
+still correct. According to the rules laid out above there are 40 different
+single-syllable words, 40^2 = 1,600 two-syllable words, 40^3 = 64,000
+three-syllable words, 40^4 = 2,560,000 four-syllable words, etc. At ten
+syllables (an extreme case) there are 10,485,760,000,000,000 different
+10-syllable words and a total number of 10,754,625,641,025,640
+any-number-of-syllables-less-or-equal-to-10 words.
+
+
+** TODO IPA/SAMPA
+
+The author of this document is not very familiar with IPA, SAMPA, or any other
+phonetic alphabet.
+
+* Goals
+
+Na wants to be a useful language somewhat usable by people. Na has been
+designed to be fairly global, but since the creator of Na is fluent only in
+Germanic languages (Danish and English), and because the Latin alphabet is
+used, Na is non-global. Nevertheless, it /wants/ to be global.
+
+* Basics
+
+Na has no nouns, no verbs, no adjectives, no adverbiums, no pronouns, etc. In
+Na, the core of everything is a word more or less equivalent to the English
+word "existence". This word is *BA*. All other words are based on this base
+word (in object oriented programming language terminology, this is equivalent
+to subclassing classes).
+
+The groups at the first levels of heritance are:
+
++ Existence :: BA
+  + Number :: BE
+    + Real number :: BEBA
+    + Integer :: BEBE
+    + Fraction :: BEBI
+    + Imaginary number :: BEBO
+    + Complex number :: BEDA
+  + Symbol :: BI
+    + Letter :: BIBA  
+  + Shape :: BO
+  + Relation :: DA
+  + Identity :: DE
+  + Absolute combiner :: DO
+  + Identifier :: FA
+  + Relative combiner :: FE
+
+
+TODO: Improve on groups.
+
+These have been chosen not because of perfection, but because Na was designed
+for human beings (who are not perfect). Nevertheless, these groups should
+suffice for the time being.
+
+*Note:* These groups are few on purpose. Many words fit into several
+groups. Groups are only good for basic things; more complex meanings do not
+have to be placed in any group.
+
+Na uses a combination of numbers, identifiers and further subclassing to
+achieve (some) usability. In Na, what is written as one sentence in
+e.g. English, can often become more than one sentence. To make a statement in
+Na, one splits one's sentence into Na sentences, the first ones consisting of
+definitions and assignments (named variables), and the final one consisting of
+everything put together in the right order. Often, the order does not matter,
+and the purpose of the final sentence is really just to point out what
+definitions you have chosen to use, and that you are done.
+
+For example, to write "I see a table." in Na, you first extract the objects (in
+Na, everything is an object) from the sentence. This gives us:
+
++ I, the subject
++ see, the verb
++ a table, the object
+
+In Na, this is simplified further into:
+
++ I
++ to see
++ table, 1
+
+The only two possible sense-making combinations using all the words would be to
+say "I see a table" or "The table sees me". To stress that the first version is
+wanted, we first combine "I" and "to see", which we then combine with a
+definition of "table, 1". Finally, we throw the definitions together, so that
+people will understand that the sentence is over.
+
+To specify "I", we use one of the members from the identity (*DE*) group. "to
+see" is also an abstraction, because the "I" can see in different ways (if it's
+a camera, it doesn't use a human brain to see, for example). Other,
+non-generalized terms are also available, but they are not part of the
+abstraction group.
+
+To create a variable to hold "table, 1", you combine the number 1 with a
+generic table defined using the shape (*BO*) group.
+
+A sentence where you combine words into a new word has this structure:
+
+: <word 1> <word 2>[ <word 3>[...]] DO <new word>.
+
+This is an absolute combination. It is also possible to make relative
+combinations where word mixes are not saved in new words:
+
+: <word 1> <word 2>[...] FE <word(s)>[ ...].
+
+In these relative cases, the words before an FE mark are evaluated when FE is
+reached. If FE is left out from such sentences, everything will be evaluated at
+once. Programmers might find it helpful to think of FE as a stack resetter.
+
+When you do not use the *DO* or *FE* combiner, you state something:
+
+: <word 1>[ <word 2>[...]].
+
+In real languages, this is the equivalent of actually expressing something ---
+combines do not express anything, they merely aid in preparing for later
+expressions.
+
+* Example 1: I see a table
+
+One can write "I see a table." in two ways: the absolute way with *DO* or the
+relative way with *FE*.
+
+Words for "I", "to see", and "table" have not yet been made, but we assume they
+are BIGUHA, NULASE, and GAVOTI, respectively. The integer 1 is FA BEBE B.
+
+** Absolute way
+
++ Step 1 :: Combine "I" and "to see" into a sentence using combinations from
+            different groups. Give it a name, e.g. VAVO.
++ Step 2 :: Combine the number 1 from the integer (*BEBE*) group with the table
+            from the shape group. Give it a name, e.g. GALO.
++ Step 3 :: a) Write VAVO GALO, or b) combine VAVO and GALO into e.g. VALO
+            (could be any word) and go to step four.
++ Step 4 :: Write VALO.
+
+So:
+
+: biguha nulase do vavo. gavoti fa bebe b do galo. vavo galo do valo. valo.
+
+or, shorter:
+
+: biguha nulase do vavo. gavoti fa bebe b do galo. vavo galo.
+
+The advantage of the first variation is that VALO can be reused again and again
+until people have forgotten what its temporary meaning is. For example, if you
+are telling a story where the main character often sees a table, you could do
+this:
+
+: valo. valo. valo. valo. valo.
+
+It is not necessary to define new combinations all the time. Na comes with a
+small built-in set of combinations which is required learning for all Na
+speakers. These built-in definitions should be used whenever possible,
+eventually in subclassed or changed forms, to make it easier to write --- and
+especially speak --- Na.
+
+** Relative way
+
+The relative way is a bit simpler, shorter and easier to say:
+
+: biguha nulase fa bebe b fe gavoti.
+
+In fact, this relative sentence can be made into an absolute sentence:
+
+: biguha nulase fa bebe b fe gavoti do valo. valo.
+
+** Thoughts
+
+In speech the relative way is much more useful than the absolute one. Both are
+useful, though.
+
+
+* Identifiers
+
+Some of the groups can be used as identifiers. When an identifier is used one
+or more arguments are expected. The integer identifier requires one argument
+(the number), the real number identifier requires two arguments (before and
+after the point), and the letter identifier requires one argument. To use a
+group as an identifier, prefix it with *FA*.
+
+* Numbers
+
+Numbers in Na are duodecimal, i.e. base 12. The alphabet is used as numbers. A
+is used for zero, the consonants range from 1 to 10, and O is used for 11. When
+specifying a number, it should be prefixed with *FA BEBA* (real numbers) or any
+other name from a subclassed number identifier, and it should be written with
+the least important bit first (LSB). To pronounce a number, speak the letters
+of the number one by one.
+
+Examples:
+
++ FA BEBE GB = 16
++ FA BEBE D = 2
++ FA BEBA D AT = 2.108
+
+TODO: Improve this strange system
+
+
+* Example 2: We transported the ship into another dimension
+
+This sentence is a bit tricky. We start by splitting the sentence into
+meaningful parts:
+
++ we transport (in the past)
++ <something specific> ship
++ into
++ another dimension
+
+Again, base words have not been defined yet, so we assume that "we (generic)"
+(we do not know if it is an exclusive or inclusive we) is GELO, "transport" is
+LOLOTI, the past is BATATO, something specific is SESE, "ship" is MOLOTE,
+"into" is NIKO, "another" is KOBO, and "dimension" is TILE.
+
+It appears that it is actually quite easy to create a relative sentence now:
+
+: batato gelo loloti fe sese molote niko fe fe tile kobo.
+
+Notice the two FE in the end. Without the second FE, the sentence could also
+mean "We transported another dimension into the ship.". It would not be wrong
+to omit the FE, but it would create an ambigious sentence (which can be
+useful).
+
+Remember that the following sentence means excactly the same as the previous:
+
+: loloti batato gelo fe niko molote sese fe fe kobo tile.
+
+Word order is only important in the case of identifiers and their arguments.
+
+
+* Example 3: 33+2.4i
+
+33+2.4i is a complex number. The x+yi notation doesn't fit well in Na. Instead,
+the *FA BEDA* identifier is used (33+2.4i = 33.0+2.4i):
+
+: fa beda td a d g.
+
+Again, this is not perfect.
+
+
+* TODO Foreign words
+
+Foreign words present a problem in Na.
+
+
+* TODO Built-ins
+
+~1000 words needed to begin with.
+
+
+* Miscellaneous
+
+Since there are only 16 characters (14 letters, the period, and space), one
+character can be stored in only 4 bits, and 2 characters can be stored in one
+byte.
+
+Because of the infinitely many relatively different ways to say the same thing,
+texts and speech can be varied a great deal. This could be quite useful in
+e.g. poems.
+
+* License
+
+This document is available under the Creative Commons Attribution-Share Alike
+3.0 Unported license.
